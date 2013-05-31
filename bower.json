@@ -1,0 +1,8 @@
+{
+  "name": "cUpload.js",
+  "version": "0.0.1",
+  "main": "./cUpload-0.0.1.js",
+  "dependencies": {
+    "jquery": "~1.9.1"
+  }
+}
