@@ -76,11 +76,11 @@
   };
 
   $.asyncFiles = function(el, options) {
-    var base = this
+    var base = this;
         
-    , base.$el = $(el)
+    base.$el = $(el)
 
-    , base.el = el;
+  , base.el = el;
         
     base.init = function(el) {
       base.options = $.extend({},$.asyncFiles.defaultOptions, options);
