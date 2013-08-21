@@ -1,9 +1,9 @@
 # cUpload.js
 
-cUpload.js is an easy to use, asynchronous, HTML5, drag-n-drop, multi-file uploader.
+async-file-uploader.js is an easy to use, asynchronous, HTML5, drag-n-drop, multi-file uploader.
   
 ## Installation
-    $ bower install cUpload
+    $ bower install async-file-uploader
 
 ## Example
 See examples/ for examples on using the uploader.
