@@ -3,6 +3,7 @@
 , "version": "0.0.1"
 , "main": "./async-file-uploader-0.0.1.min.js"
 , "dependencies": {
-    "jquery": ">=1.9.1"
+    "jquery": "~1.9.1"
+  , "async": "~0.2.5"
   }
 }
