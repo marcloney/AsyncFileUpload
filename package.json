@@ -1,10 +1,12 @@
 {
-  "name": "async-file-uploader"
-, "version": "0.0.1"
-, "devDependencies": {
-    "grunt": "~0.4.1"
-  , "bower": "~1.2.4"
-  , "grunt-contrib-uglify": "0.2.2"
-  , "grunt-bower-concat": "~0.1.1"
+  "name": "async-file-uploader",
+  "version": "0.0.1",
+  "devDependencies": {
+    "grunt": "~0.4.1",
+    "bower": "~1.2.4",
+    "grunt-contrib-uglify": "0.2.2",
+    "grunt-bower-concat": "~0.1.1",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-clean": "~0.5.0"
   }
 }

@@ -2,8 +2,9 @@
   "use strict";
 
   var FileUpload = function(file, url) {
-    this.file = file
-  , this.url = url;
+    this.file = file;
+
+    this.url = url;
 
     this.format_bytes = function(bytes, precision) {  
       var kilobyte = 1024
@@ -46,7 +47,7 @@
         , XHR = new XMLHttpRequest();
 
       var upload_progress_handler = function(e) {
-        var percentComplete = parseInt(e.loaded / e.total * 100);
+        var percentComplete = parseInt(e.loaded / e.total * 100, 10);
 
         self.$progress.html(percentComplete + '%');
       };
@@ -78,9 +79,9 @@
   $.asyncFiles = function(el, options) {
     var base = this;
         
-    base.$el = $(el)
+    base.$el = $(el);
 
-  , base.el = el;
+    base.el = el;
         
     base.init = function(el) {
       base.options = $.extend({},$.asyncFiles.defaultOptions, options);
@@ -134,7 +135,8 @@
       var input_change_handler = function(e) {
         var currentFiles = e.target.files || e.dataTransfer.files;
 
-        e.stopPropagation() && e.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
 
         for(var i = 0; i < currentFiles.length; ++i) {
           var file = new FileUpload(currentFiles[i], base.options.url);
@@ -156,7 +158,8 @@
         base.$drag.get(0).addEventListener('drop', input_change_handler, false);
 
       var drag_dragover_handler = function(e) {
-        e.stopPropagation() && e.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
 
         $(this).addClass('afu-dragover');
       };
@@ -165,7 +168,8 @@
         base.$drag.on('dragover', drag_dragover_handler);
 
       var drag_dragleave_handler = function(e) {
-        e.stopPropagation() && e.preventDefault();
+        e.stopPropagation();
+        e.preventDefault();
 
         $(this).removeClass('afu-dragover');
       };
