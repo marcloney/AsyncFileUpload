@@ -1,0 +1,7 @@
+{
+  "maxerr": 50
+, "laxcomma": true
+, "strict": true
+, "browser": true
+, "jquery": true
+}
