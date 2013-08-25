@@ -2,10 +2,6 @@
   "use strict";
 
   var FileUpload = function(file, url) {
-    this.file = file;
-
-    this.url = url;
-
     this.format_bytes = function(bytes, precision) {  
       var kilobyte = 1024
         , megabyte = kilobyte * 1024
@@ -42,7 +38,7 @@
       return $el;
     };
 
-    this.upload = function() {
+    this.upload = function(fn) {
       var self = this
         , XHR = new XMLHttpRequest();
 
@@ -57,9 +53,15 @@
 
         XHR.onreadystatechange = function(e) {
           if(XHR.readyState == 4) {
-            var status = (XHR.status == 200) ? 'success' : 'failure';
-            
-            self.$progress.html(status);
+            if(XHR.status == 200) {
+              self.$progress.html('success');
+
+              return fn();
+            } else {
+              self.$progress.html('failure');
+
+              return fn(XHR.status);
+            }
           }
         };
 
@@ -70,7 +72,11 @@
     };
 
     this.init = function() {
-      this.size = this.format_bytes(this.file.size, 2);   
+      this.size = this.format_bytes(this.file.size, 2);  
+
+      this.file = file;
+
+      this.url = url;
     };
 
     this.init();
@@ -112,6 +118,32 @@
 
       //Remove base.$container
       base.$input.unwrap();
+    };
+
+    base.upload = function(fn) {
+      var files = [];
+
+      //Upload all files asynchronously
+      async.each(
+        base.files
+      , function(i, callback) {
+          base.files[i].upload(function() {
+            //Add files uploaded to local var in order of upload
+            files.push(base.files[i].file);
+
+            //Run callback
+            callback();
+          });
+        }
+      , function(err) {
+          if(err) {
+            return $.error(err);
+          }
+
+          //Callback to userland with an array of window.File
+          return fn(files);
+        }
+      );
     };
 
     var render = function() {
