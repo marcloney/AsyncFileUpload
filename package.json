@@ -1,6 +1,6 @@
 {
-  "name": "async-file-uploader",
-  "version": "0.0.1",
+  "name": "AsyncFileUpload",
+  "version": "0.0.2",
   "devDependencies": {
     "grunt": "~0.4.1",
     "bower": "~1.2.4",
@@ -10,6 +10,6 @@
     "grunt-contrib-jshint": "~0.6.3",
     "grunt-contrib-clean": "~0.5.0",
     "grunt-contrib-watch": "~0.5.2",
-    "grunt-contrib-copy": "~0.4.1"
+    "grunt-contrib-cssmin": "~0.6.1"
   }
 }

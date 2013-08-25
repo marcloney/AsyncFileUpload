@@ -1,12 +1,89 @@
-# cUpload.js
+# AsyncFileUpload
 
-async-file-uploader.js is an easy to use, asynchronous, HTML5, drag-n-drop, multi-file uploader.
+AsyncFileUpload is a drag-and-drop, jQuery plug-in for asynchronous file uploads.
+
+  - HTML5 Drag-and-drop file uploads
+  - Parallel, asynchronous file uploads
+  - Utilising the [ECMAScript 5 File API](https://developer.mozilla.org/en-US/docs/Web/API/File)
   
-## Installation
-    $ bower install async-file-uploader
+## Download
+
+    $ bower install AsyncFileUpload
+
+Alternatively, if you don't like building you can download the prebuilt development and production (minified) version through [Releases](https://github.com/marcloney/AsyncFileUpload/releases
+
+## Build
+
+AsyncFileUpload.js requires [NPM](http://npmjs.org), [Bower](http://bower.io) and [Grunt](http://gruntjs.com) to build.
+
+    $ git clone https://github.com/marcloney/AsyncFileUpload
+    $ npm install
+    $ bower install
+    $ grunt
+
+The output will be present in the dest/ folder.
 
 ## Example
-See examples/ for examples on using the uploader.
+
+    <form enctype="multipart/form-data">
+      <input type="file" name="file[]" multiple>
+      <input type="button" value="Upload">
+    </form>
+
+    <script src="../bower_components/jquery/jquery.min.js"></script
+    <script src="../asyncFileUpload-0.0.1.min.js"></script>
+    <script>
+      $(function() {
+        $('input[type=file]').asyncFileUploader({
+          url: 'php/upload.php'
+
+          /***/
+
+        });  
+        
+        $("input[type=button]").on("click", function() {
+          $("input[type=file]").asyncFileUpload("upload", function(files) {
+
+            /***/
+
+          });
+        });
+      });
+    </script>
+
+See example/ for further information.
+
+## Options
+
+`url: null`
+
+The URL of the server-side script to handle file uploads.
+
+`inputHidden: false`
+
+Hide `input[type=file]` field (recommended to have drag on otherwise no user input is possible).
+
+`dragHidden: false`
+
+Hide drag-and-drop section until a file is dragged into the browser.
+
+`drag: true`
+
+Enable drag-and-drop.
+
+## Methods
+
+`$.fn.AsyncFileUpload.init( options )`
+
+Initialise plug-in with options.
+
+`$.fn.AsyncFileUpload.destroy()`
+
+Destroy plug-in.
+
+`$.fn.AsyncFileUpload.upload ( callback )`
+
+Upload selected files to the URL specified in `init( options )`. This method takes a callback function as it's argument which is called when all files have been uploaded.
 
 ## License
 (The MIT License)

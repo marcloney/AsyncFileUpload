@@ -5,12 +5,12 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json')
   , watch: {
       scripts: {
-        files: ['js/*.js']
-      , tasks: ['jshint', 'bower', 'concat', 'uglify']
+        files: ['lib/js/*.js']
+      , tasks: ['clean:preBuild', 'jshint', 'bower', 'concat', 'uglify', 'cssmin', 'clean:postBuild']
       }
     }
   , jshint: {
-      all: ['js/main.js']
+      all: ['lib/js/*.js']
     , options: {
         jshintrc: '.jshintrc'
       }
@@ -25,21 +25,36 @@ module.exports = function(grunt) {
       options: {
         seperator: ";"
       }
-    , dist: {
-        src: ['bower_components/async/lib/async.js', 'tmp/bower.js', 'js/main.js']
-      , dest: 'tmp/main.js'
+    , scripts: {
+        src: ['bower_components/async/lib/async.js', 'tmp/bower.js', 'lib/js/*.js']
+      , dest: 'dest/<%= pkg.name %>-<%= pkg.version %>.js'
+      }
+    , styles: {
+        src: ['lib/css/*.css']
+      , dest: 'dest/<%= pkg.name %>-<%= pkg.version %>.css'
       }
     }
   , uglify: {
       build: {
         files: {
-          '<%= pkg.name %>-<%= pkg.version %>.min.js': ['tmp/main.js']
+          'dest/<%= pkg.name %>-<%= pkg.version %>.min.js': ['dest/<%= pkg.name %>-<%= pkg.version %>.js']
         }
       }
     }
-  , clean: ['tmp/']
+  , cssmin: {
+      build: {
+        files: {
+          'dest/<%= pkg.name %>-<%= pkg.version %>.min.css': ['dest/<%= pkg.name %>-<%= pkg.version %>.css']
+        }
+      }
+    }
+  , clean: {
+      preBuild: ['dest/']
+    , postBuild: ['tmp/']
+    }
   });
 
+  grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-clean');
@@ -47,5 +62,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bower-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  grunt.registerTask('default', ['jshint', 'bower', 'concat', 'uglify', 'clean']);
+  grunt.registerTask('default', ['clean:preBuild', 'jshint', 'bower', 'concat', 'uglify', 'cssmin', 'clean:postBuild']);
 };

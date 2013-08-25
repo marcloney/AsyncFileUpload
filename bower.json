@@ -1,7 +1,7 @@
 {
-  "name": "async-file-uploader"
-, "version": "0.0.1"
-, "main": "./async-file-uploader-0.0.1.min.js"
+  "name": "AsyncFileUpload"
+, "version": "0.0.2"
+, "main": ["dest/AsyncFileUpload-0.0.2.min.js", "dest/AsyncFileUpload-0.0.2.min.css"]
 , "dependencies": {
     "jquery": "~1.9.1"
   , "async": "~0.2.5"
