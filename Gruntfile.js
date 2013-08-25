@@ -3,6 +3,12 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json')
+  , watch: {
+      scripts: {
+        files: ['js/*.js']
+      , tasks: ['jshint', 'bower', 'concat', 'uglify']
+      }
+    }
   , jshint: {
       all: ['js/main.js']
     , options: {
@@ -34,6 +40,7 @@ module.exports = function(grunt) {
   , clean: ['tmp/']
   });
 
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');

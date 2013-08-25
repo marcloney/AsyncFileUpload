@@ -1,7 +1,9 @@
 (function($) {
   "use strict";
-
+ 
   var FileUpload = function(file, url) {
+    var self = this;
+
     this.format_bytes = function(bytes, precision) {  
       var kilobyte = 1024
         , megabyte = kilobyte * 1024
@@ -29,18 +31,27 @@
     };
 
     this.render = function() {
-      var $el = $('<tr>').attr('id', window.btoa(this.file.name));
+      var $el = $('<tr>').attr('id', window.btoa(this.file.name))
 
-      $('<td>').addClass('afu-filetype').attr('data-filetype', this.file.type).appendTo($el);
+        , types = ['pdf', 'image', 'word', 'zip', 'video', 'audio']
+
+        , type = 'other';
+
+      async.each(types, function(index, fn) {
+        if(self.file.type.indexOf(index) >= 0) {
+          type = index;
+        }
+      });
+
+      $('<td>').addClass('afu-filetype').attr('data-filetype', type).appendTo($el);
       $('<td>').html(this.file.name).appendTo($el); 
-      this.$progress = $('<td>').addClass('afu-progress').appendTo($tr);
+      this.$progress = $('<td>').addClass('afu-progress').appendTo($el);
 
       return $el;
     };
 
     this.upload = function(fn) {
-      var self = this
-        , XHR = new XMLHttpRequest();
+      var XHR = new XMLHttpRequest();
 
       var upload_progress_handler = function(e) {
         var percentComplete = parseInt(e.loaded / e.total * 100, 10);
@@ -72,7 +83,7 @@
     };
 
     this.init = function() {
-      this.size = this.format_bytes(this.file.size, 2);  
+      //this.size = this.format_bytes(this.file.size, 2);  
 
       this.file = file;
 
@@ -82,26 +93,26 @@
     this.init();
   };
 
-  $.asyncFiles = function(el, options) {
-    var base = this;
-        
-    base.$el = $(el);
+  $.asyncFileUploader = function(el, options) {
+    var self = this;
 
-    base.el = el;
-        
-    base.init = function(el) {
-      base.options = $.extend({},$.asyncFiles.defaultOptions, options);
+    this.init = function(el) {
+      this.$el = $(el);
 
-      base.$input = $(el);
+      this.options = $.extend({},$.asyncFileUploader.defaultOptions, options);
 
-      if(!base.$input.is('input[type=file]'))
+      this.$input = $(el);
+
+      if(!this.$input.is('input[type=file]'))
         return $.error('Cannot call $.fn.asyncFiles() on non input[type=file] DOM object.');
 
-      //Create container to surround the input[type=file]
-      base.$container = $('<div>').addClass('afu-container');
-
       //Wrap input[type=file] in container
-      base.$input.wrap(base.$container);
+      this.$input.wrap('<div>');
+
+      this.$container = this.$input.parent().addClass('afu-container');
+
+      //Create array of files to be uploaded
+      this.files = [];
 
       //Create required DOM objects within our container
       render();
@@ -110,60 +121,66 @@
       events();
     };
 
-    base.destroy = function() {
+    this.destroy = function() {
       //Remove DOM objects
-      $().add(base.$drag)
-         .add(base.$log)
+      $().add(this.$drag)
+         .add(this.$log)
          .remove();
 
       //Remove base.$container
-      base.$input.unwrap();
+      this.$input.unwrap();
     };
 
-    base.upload = function(fn) {
+    this.upload = function(callback) {
       var files = [];
 
       //Upload all files asynchronously
       async.each(
-        base.files
-      , function(i, callback) {
-          base.files[i].upload(function() {
+        this.files
+      , function(i, fn) {
+          this.files[i].upload(function() {
             //Add files uploaded to local var in order of upload
             files.push(base.files[i].file);
 
             //Run callback
-            callback();
+            fn();
           });
         }
       , function(err) {
+          this.files = [];
+
           if(err) {
             return $.error(err);
           }
 
-          //Callback to userland with an array of window.File
-          return fn(files);
+          //Run callback to userland with an array of window.File
+          return callback(files);
         }
       );
     };
 
     var render = function() {
       //Hide input[type=file]
-      if(base.options.inputHidden)
-        base.$input.remove();
+      if(self.options.inputHidden)
+        self.$input.remove();
       
       //Insert drag n' drop area
-      if(base.options.drag)
-        base.$drag = $('<div>').addClass('afu-drag').append(base.$container);
+      if(self.options.drag) {
+        self.$drag = $('<div>').addClass('afu-drag').appendTo(self.$container);
+
+        $('<p>').html('Drop file(s) here').appendTo(self.$drag);
+      }
 
       //Hide drag n' drop area
-      if(base.options.dragHidden)
-        base.$drag.hide();
+      if(self.options.dragHidden)
+        self.$drag.hide();
 
       //Insert log area
-      base.$log = $('<div>').addClass('afu-log').appendTo(base.$container);
+      self.$log = $('<table>').addClass('afu-log').appendTo(self.$container);
     };
 
     var events = function() {
+
       var input_change_handler = function(e) {
         var currentFiles = e.target.files || e.dataTransfer.files;
 
@@ -171,23 +188,26 @@
         e.preventDefault();
 
         for(var i = 0; i < currentFiles.length; ++i) {
-          var file = new FileUpload(currentFiles[i], base.options.url);
-
+          var file = new FileUpload(currentFiles[i], self.options.url);
           //Add current file to global files
-          base.files.push(file);
+          self.files.push(file);
           
           //Render table row and append to log
-          base.$log.append(file.render());
+          self.$log.append(file.render());
         }
 
-        base.$drag.removeClass('dragover');
+        //Remove dragover effect
+        self.$drag.removeClass('afu-dragover');
+
+        //Clear input field
+        self.$input.val('');
       };
 
-      base.$input.on('change', input_change_handler);
+      self.$input.on('change', input_change_handler);
 
       //If XHR2 is available we can impliment drop uploads
-      if(base.options.drag && (new XMLHttpRequest()).upload)
-        base.$drag.get(0).addEventListener('drop', input_change_handler, false);
+      if(self.options.drag && (new XMLHttpRequest()).upload)
+        self.$drag.get(0).addEventListener('drop', input_change_handler, false);
 
       var drag_dragover_handler = function(e) {
         e.stopPropagation();
@@ -196,8 +216,8 @@
         $(this).addClass('afu-dragover');
       };
 
-      if(base.options.drag)
-        base.$drag.on('dragover', drag_dragover_handler);
+      if(self.options.drag)
+        self.$drag.on('dragover', drag_dragover_handler);
 
       var drag_dragleave_handler = function(e) {
         e.stopPropagation();
@@ -206,34 +226,35 @@
         $(this).removeClass('afu-dragover');
       };
 
-      if(base.options.drag)
-        base.$drag.on('dragleave', drag_dragleave_handler);
+      if(self.options.drag)
+        self.$drag.on('dragleave', drag_dragleave_handler);
     };
         
     // Init
-    base.init(el);
+    this.init(el);
   };
     
-  $.asyncFiles.defaultOptions = {
-    "inputHidden": false //Hide the input[type=file] field
-  , "dragHidden": false //Hide the drag n' drop field
-  , "drag": true //Enable drag n' drop
+  $.asyncFileUploader.defaultOptions = {
+    'inputHidden': false //Hide the input[type=file] field
+  , 'dragHidden': false //Hide the drag n' drop field
+  , 'drag': true //Enable drag n' drop
   };
     
-  $.fn.asyncFiles = function(options) {
+  $.fn.asyncFileUploader = function(options) {
     if(!window.File || !window.FileList || !window.FileReader)
       return $.error('Your browser does not support the HTML5 File API.');
 
-    if(typeof options === 'string' && base[options])
-      return base[options];
+    debugger;
+
+    if(typeof options === 'string' && self[options])
+      return self[options].apply(this, Array.prototype.slice.call(options,1));
 
     if(typeof options === 'object' || !options) {
       return this.each(function() {
-        (new $.asyncFiles(this, options));
+        (new $.asyncFileUploader(this, options));
       });
     }
 
-    return $.error('Method' + options + ' does not exist.');
+    return $.error('Method ' + options + ' does not exist.');
   };
-
 })(jQuery);
