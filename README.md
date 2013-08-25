@@ -14,7 +14,7 @@ Alternatively, if you don't like building you can download the prebuilt developm
 
 ## Build
 
-AsyncFileUpload.js requires [NPM](http://npmjs.org), [Bower](http://bower.io) and [Grunt](http://gruntjs.com) to build.
+AsyncFileUploads requires [NPM](http://npmjs.org), [Bower](http://bower.io) and [Grunt](http://gruntjs.com) to build.
 
     $ git clone https://github.com/marcloney/AsyncFileUpload
     $ npm install
@@ -31,7 +31,7 @@ The output will be present in the dest/ folder.
     </form>
 
     <script src="../bower_components/jquery/jquery.min.js"></script
-    <script src="../asyncFileUpload-0.0.1.min.js"></script>
+    <script src="../asyncFileUpload-0.0.2.min.js"></script>
     <script>
       $(function() {
         $('input[type=file]').asyncFileUploader({
@@ -42,7 +42,7 @@ The output will be present in the dest/ folder.
         });  
         
         $("input[type=button]").on("click", function() {
-          $("input[type=file]").asyncFileUpload("upload", function(files) {
+          $("input[type=file]").AsyncFileUpload("upload", function(files) {
 
             /***/
 
@@ -95,7 +95,7 @@ this software and associated documentation files (the 'Software'), to deal in
 the Software without restriction, including without limitation the rights to 
 use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of 
 the Software, and to permit persons to whom the Software is furnished to do so, 
-subject to the following conditions:
+subject to the following conditions:z
 
 The above copyright notice and this permission notice shall be included in all 
 copies or substantial portions of the Software.
