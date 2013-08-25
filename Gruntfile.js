@@ -11,9 +11,17 @@ module.exports = function(grunt) {
     }
   , bower: {
       all: {
-        dest: 'tmp/main.js'
+        dest: 'tmp/bower.js'
       , exclude: ['jquery', 'async']
-      , include: ['bower_components/async/lib/async.js', 'js/main.js']
+      }
+    }
+  , concat: {
+      options: {
+        seperator: ";"
+      }
+    , dist: {
+        src: ['bower_components/async/lib/async.js', 'tmp/bower.js', 'js/main.js']
+      , dest: 'tmp/main.js'
       }
     }
   , uglify: {
@@ -26,10 +34,11 @@ module.exports = function(grunt) {
   , clean: ['tmp/']
   });
 
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-bower-concat');
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
-  grunt.registerTask('default', ['jshint', 'bower', 'uglify']);
+  grunt.registerTask('default', ['jshint', 'bower', 'concat', 'uglify', 'clean']);
 };
