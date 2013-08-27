@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     pkg: grunt.file.readJSON('package.json')
   , watch: {
       scripts: {
-        files: ['lib/js/*.js']
+        files: ['lib/js/*.js', 'lib/css/*.css']
       , tasks: ['clean:preBuild', 'jshint', 'bower', 'concat', 'uglify', 'cssmin', 'clean:postBuild']
       }
     }

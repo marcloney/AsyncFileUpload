@@ -1,0 +1,73 @@
+body {
+  background-color: #9B59B6;
+  color: #fff;
+  font-family: 'BPReplay';
+}
+
+#file {
+  max-width: 500px;
+}
+
+#file .afu-drag p {
+  font-size: 30px;
+  text-transform: lowercase;
+}
+
+#file .afu-drag, .afu-log {
+  border-color: #fff;
+}
+
+#file .afu-log tr:nth-child(even) {
+  background-color: #8E44AD;
+}
+
+#file .afu-log tr:hover {
+  opacity: 0.8;
+}
+
+#file .afu-dragover {
+  background-color: #8E44AD;
+}
+
+#file input[type=button] {
+  border: none;
+  background-color: #8E44AD;
+  color: #fff;
+  font-family: 'BPReplay';
+  font-size: 20px;
+  padding: 5px;
+  float: right;
+  text-transform: lowercase;
+}
+
+#file input[type=button]:hover {
+  opacity: 0.6;
+}
+
+.afu-filetype[data-filetype='word'] {
+  background-image: url('../images/word.png');
+}
+
+.afu-filetype[data-filetype='avi'] {
+  background-image: url('../images/avi.png');
+}
+
+.afu-filetype[data-filetype='mp3'] {
+  background-image: url('../images/mp3.png');
+}
+
+.afu-filetype[data-filetype='pdf'] {
+  background-image: url('../images/pdf.png');
+}
+
+.afu-filetype[data-filetype='image'] {
+  background-image: url('../images/image.png');
+}
+
+.afu-filetype[data-filetype='zip'] {
+  background-image: url('../images/zip.png');
+}
+
+.afu-filetype[data-filetype='other'] {
+  background-image: url('../images/other.png');
+}
