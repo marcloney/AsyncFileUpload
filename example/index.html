@@ -28,7 +28,10 @@
         $("input[type=button]").on("click", function() {
           $("input[type=file]").AsyncFileUpload("upload", function(files) {
 
-            //Uploaded!
+            //Clear uploaded files list
+            $(this).AsyncFileUpload('clear');
+
+            //Returned array of File objects
             console.log(files);
           });
         });
