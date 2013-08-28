@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" href="../dest/AsyncFileUpload-0.0.2.min.css">
+    <link rel="stylesheet" href="styles/fonts.css">
+    <link rel="stylesheet" href="styles/style.css">
+  </head>
+  <body>
+    <form enctype="multipart/form-data" id="file">
+      <h1>AsyncFileUpload</h1>
+      <p>AsyncFileUpload-0.0.2 (with custom flat UI theme) example. Drag and drop a file below to view an example.</p>
+
+      <input type="file" name="file[]" multiple>
+      <input type="button" value="Upload">
+    </form>
+    
+    <script src="../bower_components/jquery/jquery.min.js"></script>
+    <script src="../dest/AsyncFileUpload-0.0.2.js"></script>
+    <script>
+      $(function() {
+        $("input[type=file]").AsyncFileUpload({
+          url: "php/upload.php",
+          inputHidden: true
+        });  
+        
+        $("input[type=button]").on("click", function() {
+          $("input[type=file]").AsyncFileUpload("upload", function(files) {
+
+            //Clear uploaded files list
+            $(this).AsyncFileUpload('clear');
+
+            //Returned array of File objects
+            console.log(files);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

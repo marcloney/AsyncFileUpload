@@ -1,0 +1,9 @@
+{
+  "name": "AsyncFileUpload-Documentation"
+, "version": "0.0.3"
+, "dependencies": {
+    "jquery": "~1.9.1"
+  , "bootstrap": "3.0.0"
+  , "AsyncFileUpload": "0.0.3"
+  }
+}

@@ -3,21 +3,49 @@
   <head>
     <meta charset="utf-8">
 
-    <link rel="stylesheet" href="../dest/AsyncFileUpload-0.0.2.min.css">
+    <title>AsyncFileUpload - marcloney.com</title>
+
+    <link rel="stylesheet" href="bower_components/AsyncFileUpload/release/AsyncFileUpload-0.0.2.min.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.js">
     <link rel="stylesheet" href="styles/fonts.css">
     <link rel="stylesheet" href="styles/style.css">
   </head>
   <body>
-    <form enctype="multipart/form-data" id="file">
+      <header class="navbar-fixed-top">
+        <h2>marcloney.com</h2>
       <h1>AsyncFileUpload</h1>
+
+      <p>AsyncFileUpload is a jQuery File Upload plug-in, utilising HTML5 drag-and-drop and ES5 File API for asynchronous file uploads. </p>
+
+      <p>Documentation is available from <a href="https://github.com/marcloney/AsyncFileUpload/">Github</a>.</p>
+
+      <h2>Download</h2>
+      <ul>
+        <li>AsyncFileUpload-0.0.2.tar.gz (Production)</li>
+        <li>AsyncFileUpload-0.0.2.tar.gz (Development)</li>
+      </ul>
+
+      You can also build from source:
+        <blockquote><pre>
+          $ git clone https://github.com/marcloney/AsyncFileUpload
+          $ npm install && bower install
+          $ grunt
+        </pre></blockquote>
+
+      <h2>Example</h2>
+
       <p>AsyncFileUpload-0.0.2 (with custom flat UI theme) example. Drag and drop a file below to view an example.</p>
+    
+    <form enctype="multipart/form-data" id="file">
 
       <input type="file" name="file[]" multiple>
       <input type="button" value="Upload">
     </form>
     
-    <script src="../bower_components/jquery/jquery.min.js"></script>
-    <script src="../dest/AsyncFileUpload-0.0.2.js"></script>
+    <script src="bower_components/jquery/jquery.min.js"></script>
+    <script src="bower_components/bootstrap/js/bootstrap.min.js"></script>
+    <script src="bower_components/AsyncFileUpload/release/AsyncFileUpload-0.0.2.min.js"></script>
+
     <script>
       $(function() {
         $("input[type=file]").AsyncFileUpload({

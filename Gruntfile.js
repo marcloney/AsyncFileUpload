@@ -27,24 +27,24 @@ module.exports = function(grunt) {
       }
     , scripts: {
         src: ['bower_components/async/lib/async.js', 'tmp/bower.js', 'lib/js/*.js']
-      , dest: 'dest/<%= pkg.name %>-<%= pkg.version %>.js'
+      , dest: 'release/<%= pkg.name %>-<%= pkg.version %>.js'
       }
     , styles: {
         src: ['lib/css/*.css']
-      , dest: 'dest/<%= pkg.name %>-<%= pkg.version %>.css'
+      , dest: 'release/<%= pkg.name %>-<%= pkg.version %>.css'
       }
     }
   , uglify: {
       build: {
         files: {
-          'dest/<%= pkg.name %>-<%= pkg.version %>.min.js': ['dest/<%= pkg.name %>-<%= pkg.version %>.js']
+          'release/<%= pkg.name %>-<%= pkg.version %>.min.js': ['release/<%= pkg.name %>-<%= pkg.version %>.js']
         }
       }
     }
   , cssmin: {
       build: {
         files: {
-          'dest/<%= pkg.name %>-<%= pkg.version %>.min.css': ['dest/<%= pkg.name %>-<%= pkg.version %>.css']
+          'release/<%= pkg.name %>-<%= pkg.version %>.min.css': ['release/<%= pkg.name %>-<%= pkg.version %>.css']
         }
       }
     }

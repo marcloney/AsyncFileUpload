@@ -10,7 +10,7 @@ AsyncFileUpload is a drag-and-drop, jQuery plug-in for asynchronous file uploads
 
     $ bower install AsyncFileUpload
 
-Alternatively, if you don't like building you can download the prebuilt development and production (minified) version through [Releases](https://github.com/marcloney/AsyncFileUpload/releases)
+Alternatively, if you don't like building you can download the prebuilt development and production (minified) version through [Releases](https://github.com/marcloney/AsyncFileUpload/releases).
 
 ## Build
 
