@@ -1,0 +1,46 @@
+.afu-container {
+  width: 100%;
+}
+
+.afu-drag {
+  height: 50px;
+  border: 2px dashed #ccc;
+  text-align: center;
+}
+
+.afu-drag p {
+  margin: 0px;
+  line-height: 50px;
+  text-transform: uppercase;
+}
+
+.afu-dragover {
+  height: 100px;
+  background-color: #ddd;
+}
+
+.afu-dragover p {
+  line-height: 100px;
+}
+
+.afu-log {
+  width: 100%;
+  border: 2px solid #ddd;
+  margin: 5px 0;
+  border-collapse: collapse;
+}
+
+.afu-log td {
+  height: 40px;
+  padding: 5px;
+}
+
+.afu-log tr:nth-child(even) {
+  background-color: #ddd;
+}
+
+.afu-filetype {
+  width: 30px;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+}
