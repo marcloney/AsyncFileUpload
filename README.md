@@ -30,8 +30,8 @@ The output will be present in the dest/ folder.
       <input type="button" value="Upload">
     </form>
 
-    <script src="../bower_components/jquery/jquery.min.js"></script
-    <script src="../asyncFileUpload-0.0.2.min.js"></script>
+    <script src="../bower_components/jquery/jquery.min.js"></script>
+    <script src="../AsyncFileUpload-0.0.2.min.js"></script>
     <script>
       $(function() {
         $('input[type=file]').asyncFileUploader({
@@ -51,7 +51,7 @@ The output will be present in the dest/ folder.
       });
     </script>
 
-See example/ for further information.
+See example/ for further information or visit the [live demo](http://msblaster.marcloney.com/AsyncFileUpload/example/).
 
 ## Options
 
@@ -84,6 +84,10 @@ Destroy plug-in.
 `$.fn.AsyncFileUpload.upload ( callback )`
 
 Upload selected files to the URL specified in `init( options )`. This method takes a callback function as it's argument which is called when all files have been uploaded.
+
+`$.fn.AsyncFileUpload.clear()`
+
+Clears currently selected files.
 
 ## License
 (The MIT License)

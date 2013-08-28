@@ -52,7 +52,7 @@ body {
   background-image: url('../images/avi.png');
 }
 
-.afu-filetype[data-filetype='mp3'] {
+.afu-filetype[data-filetype='audio'] {
   background-image: url('../images/mp3.png');
 }
 
